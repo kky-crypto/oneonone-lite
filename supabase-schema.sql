@@ -9,24 +9,40 @@ CREATE TABLE IF NOT EXISTS members (
   title TEXT,
   department TEXT,
   note TEXT,
+  persona JSONB,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- 미팅 분석 테이블
+-- 미팅 테이블
 CREATE TABLE IF NOT EXISTS meetings (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  member_id UUID REFERENCES members(id),
   member_name TEXT NOT NULL,
-  transcript TEXT NOT NULL,
+  scheduled_at TIMESTAMPTZ,
+  status TEXT DEFAULT 'scheduled',
+  agenda_items JSONB DEFAULT '[]',
+  internal_memo TEXT,
+  transcript TEXT,
   summary JSONB,
   coaching JSONB,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- RLS (Row Level Security) 비활성화 (데모용)
--- 프로덕션에서는 반드시 RLS를 활성화하고 정책을 설정하세요
+-- 롤플레이 세션 테이블
+CREATE TABLE IF NOT EXISTS practice_sessions (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  persona_seed JSONB,
+  messages JSONB DEFAULT '[]',
+  feedback JSONB,
+  status TEXT DEFAULT 'active',
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- RLS 정책 (데모용 - 모든 접근 허용)
 ALTER TABLE members ENABLE ROW LEVEL SECURITY;
 ALTER TABLE meetings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE practice_sessions ENABLE ROW LEVEL SECURITY;
 
--- 모든 사용자에게 읽기/쓰기 허용 (데모용 정책)
 CREATE POLICY "Allow all access to members" ON members FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Allow all access to meetings" ON meetings FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Allow all access to practice_sessions" ON practice_sessions FOR ALL USING (true) WITH CHECK (true);

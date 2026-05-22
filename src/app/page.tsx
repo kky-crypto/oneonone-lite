@@ -19,6 +19,24 @@ export default function Home() {
           <p className="text-sm text-gray-500 mt-1">구성원 정보와 1on1 기록을 관리하고 인사이트를 확인합니다.</p>
         </a>
 
+        <a href="/practice" className="block p-6 bg-white rounded-xl border border-gray-200 hover:border-mint-300 hover:shadow-md transition-all">
+          <div className="text-2xl mb-2">🎯</div>
+          <h3 className="font-semibold text-gray-900">실전 연습</h3>
+          <p className="text-sm text-gray-500 mt-1">AI 구성원과 1on1 시뮬레이션을 연습하고 코칭 피드백을 받습니다.</p>
+        </a>
+
+        <a href="/team-analysis" className="block p-6 bg-white rounded-xl border border-gray-200 hover:border-mint-300 hover:shadow-md transition-all">
+          <div className="text-2xl mb-2">📊</div>
+          <h3 className="font-semibold text-gray-900">팀 분석</h3>
+          <p className="text-sm text-gray-500 mt-1">팀 전체의 1on1 데이터를 집계하여 건강 상태를 진단합니다.</p>
+        </a>
+
+        <a href="/analytics" className="block p-6 bg-white rounded-xl border border-gray-200 hover:border-mint-300 hover:shadow-md transition-all">
+          <div className="text-2xl mb-2">📈</div>
+          <h3 className="font-semibold text-gray-900">개인 분석</h3>
+          <p className="text-sm text-gray-500 mt-1">나의 1on1 활동 현황과 코칭 패턴을 분석합니다.</p>
+        </a>
+
         <a href="/guide" className="block p-6 bg-white rounded-xl border border-gray-200 hover:border-mint-300 hover:shadow-md transition-all">
           <div className="text-2xl mb-2">📖</div>
           <h3 className="font-semibold text-gray-900">1on1 가이드</h3>

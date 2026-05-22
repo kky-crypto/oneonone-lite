@@ -10,11 +10,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <body className="bg-gray-50 min-h-screen">
-        <nav className="bg-white border-b border-gray-200 px-6 py-3 flex items-center gap-6">
-          <a href="/" className="text-lg font-bold text-mint-600">1on1 Agent</a>
-          <a href="/meetings" className="text-sm text-gray-600 hover:text-mint-600">미팅 분석</a>
-          <a href="/members" className="text-sm text-gray-600 hover:text-mint-600">구성원 관리</a>
-          <a href="/guide" className="text-sm text-gray-600 hover:text-mint-600">1on1 가이드</a>
+        <nav className="bg-white border-b border-gray-200 px-6 py-3 flex items-center gap-4 overflow-x-auto">
+          <a href="/" className="text-lg font-bold text-mint-600 shrink-0">1on1 Agent</a>
+          <a href="/meetings" className="text-sm text-gray-600 hover:text-mint-600 shrink-0">미팅 분석</a>
+          <a href="/members" className="text-sm text-gray-600 hover:text-mint-600 shrink-0">구성원</a>
+          <a href="/practice" className="text-sm text-gray-600 hover:text-mint-600 shrink-0">실전 연습</a>
+          <a href="/team-analysis" className="text-sm text-gray-600 hover:text-mint-600 shrink-0">팀 분석</a>
+          <a href="/analytics" className="text-sm text-gray-600 hover:text-mint-600 shrink-0">개인 분석</a>
+          <a href="/guide" className="text-sm text-gray-600 hover:text-mint-600 shrink-0">가이드</a>
         </nav>
         <main className="max-w-4xl mx-auto px-4 py-8">{children}</main>
       </body>

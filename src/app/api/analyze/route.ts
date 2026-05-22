@@ -1,16 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import {
-  BedrockRuntimeClient,
-  InvokeModelCommand,
-} from "@aws-sdk/client-bedrock-runtime";
-
-const client = new BedrockRuntimeClient({
-  region: process.env.AWS_REGION || "ap-northeast-2",
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
-  },
-});
+import { callBedrock } from "@/lib/bedrock";
 
 const SUMMARY_SYSTEM_PROMPT = `당신은 1on1 미팅 기록 전문가입니다. STT로 변환된 미팅 대화를 분석하여 구조화된 결과 기록지를 생성합니다.
 
@@ -73,28 +62,6 @@ const COACHING_SYSTEM_PROMPT = `당신은 리더십 코칭 전문가입니다. 1
   },
   "next_meeting_suggestions": ["다음 1on1에서 시도해볼 것 1", "다음 1on1에서 시도해볼 것 2"]
 }`;
-
-async function callBedrock(systemPrompt: string, userPrompt: string) {
-  const modelId = process.env.BEDROCK_MODEL_ARN || "";
-
-  const body = JSON.stringify({
-    anthropic_version: "bedrock-2023-05-31",
-    max_tokens: 4096,
-    system: systemPrompt,
-    messages: [{ role: "user", content: userPrompt }],
-  });
-
-  const command = new InvokeModelCommand({
-    modelId,
-    contentType: "application/json",
-    accept: "application/json",
-    body: new TextEncoder().encode(body),
-  });
-
-  const response = await client.send(command);
-  const responseBody = JSON.parse(new TextDecoder().decode(response.body));
-  return responseBody.content[0].text;
-}
 
 export async function POST(request: NextRequest) {
   try {
